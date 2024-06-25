@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block body %}
+
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="offer pt-5">Investment Packages</p>
+            <div class="divider"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="invest">
+                <h4>Starter Plan</h4>
+                <h1>4%</h1>
+                <p>Daily for 7days(mon-sun)</p>
+                <ul>
+                    <li>Minimum $100</li>
+                    <li>Maximum $999</li>
+                    <li>Total Profit Return: 100%</li>
+                    <li>Referal 2%</li>
+                </ul>
+                <p>24/7 withdrawal</p>
+                {% if not request.user.is_authenticated %}
+                <a href=""><button class="btn btn-primary w-100">invest</button></a>
+                {% endif %}
+            </div>    
+        </div>
+        <div class="col-lg-4">
+            <div class="invest">
+                <h4>Premium Plan</h4>
+                <h1>6%</h1>
+                <p>Daily for 7days(mon-sun)</p>
+                <ul>
+                    <li>Minimum $1000</li>
+                    <li>Maximum $5999</li>
+                    <li>Total Profit Return: 150%</li>
+                    <li>Referal 3%</li>
+                </ul>
+                <p>24/7 withdrawal</p>
+                {% if not request.user.is_authenticated %}
+                <a href=""><button class="btn btn-primary w-100">invest</button></a>
+                {% endif %}
+            </div>    
+        </div>
+        <div class="col-lg-4">
+            <div class="invest ">
+                <h4>Vip Plan</h4>
+                <h1>10%</h1>
+                <p>Daily for 7days(mon-sun)</p>
+                <ul>
+                    <li>Minimum $6000</li>
+                    <li>Maximum $1 million</li>
+                    <li>Total Profit Return: 250%</li>
+                    <li>Referal 5%</li>
+                </ul>
+                <p>24/7 withdrawal</p>
+                {% if not request.user.is_authenticated %}
+                <a href=""><button class="btn btn-primary w-100">invest</button></a>
+                {% endif %}
+            </div>    
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
