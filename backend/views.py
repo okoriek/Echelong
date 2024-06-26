@@ -111,7 +111,7 @@ def Dashboard(request):
     for i in bonus:
         total += i.earnings
     arg = {'detail':detail, 'data':data, 'total':refer.count(), 'refer': detail.referal, 'earnings':total}
-    return render(request, 'backend/dashboard.html', arg)
+    return render(request, 'dashboard/dashboard.html', arg)
 
 
 
@@ -130,7 +130,7 @@ def Deposit(request):
     else:
         form = DepositForm()
     arg = {'form':form}
-    return render(request, 'backend/deposit.html', arg)
+    return render(request, 'dashboard/deposit.html', arg)
 
 @login_required(login_url='/login/')
 def ConfirmPayment(request):
@@ -142,7 +142,7 @@ def ConfirmPayment(request):
 def profiledetails(request):
     detail =  User.objects.get(email = request.user.email)
     arg = {'details':detail}
-    return render(request, 'backend/profiledetails.html', arg)
+    return render(request, 'dashboard/profiledetails.html', arg)
 
 @login_required(login_url='/login/')  
 def Referal(request):
@@ -160,7 +160,7 @@ def history(request):
     user = request.user
     data = History.objects.filter(user = user)
     args = {'data':data}
-    return render(request, 'backend/history.html', args)
+    return render(request, 'dashboard/history.html', args)
 
 @login_required(login_url='/login/')
 def editProfile(request):
@@ -174,14 +174,14 @@ def editProfile(request):
     else:
         forms =  UserForm(instance=request.user)
     args = {'forms':forms}
-    return render(request, 'backend/editprofile.html' , args)
+    return render(request, 'dashboard/editprofile.html' , args)
 
 
 @login_required(login_url='/login/') 
 def RenderWithdrawal(request):
     data =  Currency.objects.all()
     args = {'data':data}
-    return render(request, 'backend/withdrawal.html', args)
+    return render(request, 'dashboard/withdrawal.html', args)
 
 @login_required(login_url='/login/') 
 def MakeWithdrawal(request):
@@ -229,7 +229,7 @@ def investment(request):
 def ActiveInvestment(request):
     invest =  Plan.objects.all().values
     args = {'invest':invest}
-    return render(request, 'backend/active.html', args)
+    return render(request, 'dashboard/active.html', args)
 
 @login_required(login_url='/login/') 
 def SubmitInvestment(request):
@@ -299,7 +299,7 @@ def transfer(request):
 @login_required(login_url='/login/') 
 def InitiateTransfer(request):
     
-    return render(request, 'backend/transfer.html')
+    return render(request, 'dashboard/transfer.html')
 
 
 
@@ -325,7 +325,7 @@ def validateEarning(request):
 
 def DisplayEmail(request):
 
-    return render(request, 'backend/mailsending.html')
+    return render(request, 'dashboard/mailsending.html')
 
 
 def SendBulkEmail(request):
