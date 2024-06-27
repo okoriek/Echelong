@@ -15,7 +15,7 @@ load_dotenv()
 SECRET_KEY = 'django-insecure-(iqbq_5^=axvh6+)6+lov0!t8&z%#h7s4ebd7-qn#aau0-#!2a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -147,6 +147,6 @@ EMAIL_HOST_PASSWORD=os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL =True
 DEFAULT_FROM_EMAIL ='support@zenithport.com'
 
-LOGIN_REDIRECT_URL = ('/')
+LOGIN_REDIRECT_URL = ('/Profile-dashboard')
 LOGOUT_REDIRECT_URL = ('/')
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
