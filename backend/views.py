@@ -126,7 +126,7 @@ def Deposit(request):
             current.save()
             bills = Payment.objects.last()
             qrcode =  Currency.objects.filter(name=bills.payment_option).last()
-            return render(request, 'backend/confirmpayment.html', {'currency':current.payment_option, 'amount':current.amount, 'type':qrcode})
+            return render(request, 'dashboard/confirmpayment.html', {'currency':current.payment_option, 'amount':current.amount, 'type':qrcode})
     else:
         form = DepositForm()
     arg = {'form':form}
@@ -153,7 +153,7 @@ def Referal(request):
     for i in bonus:
         total += i.earnings
     arg = {'total':refer.count(), 'refer': detail.referal, 'earning':total}
-    return render(request, 'backend/referal.html', arg)
+    return render(request, 'dashboard/referal.html', arg)
 
 @login_required(login_url='/login/')  
 def history(request):
