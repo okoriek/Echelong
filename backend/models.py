@@ -164,7 +164,7 @@ class Investment(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     plan = models.CharField(max_length=100, choices=choice)
-    amount = models.FloatField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     is_active = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
     date_expiration = models.DateTimeField(default=timezone.now) 
@@ -186,7 +186,7 @@ class Investment(models.Model):
 
 class Plan(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True)
-    profit =  models.IntegerField()
+    profit =  models.DecimalField(decimal_places=2, max_digits=10)
     duration = models.IntegerField()
     referal =  models.IntegerField()
      
@@ -197,7 +197,7 @@ class Plan(models.Model):
 class Withdrawal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     currency = models.CharField(max_length=20, blank=True, null=True)
-    amount = models.IntegerField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.BooleanField(default=False) 
     date_created = models.DateTimeField(default=timezone.now)
 
@@ -217,7 +217,7 @@ class Withdrawal(models.Model):
 class Transfer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     reciever = models.CharField(max_length=20, blank=True, null=True)
-    amount = models.IntegerField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.BooleanField(default=False) 
     date_created = models.DateTimeField(default=timezone.now)
 
@@ -228,7 +228,7 @@ class Transfer(models.Model):
         user =  self.user
         amount =  self.amount
         referer =  self.reciever
-        if self.status == True:
+        if self.status == False:
             TransferMail(user,referer,amount)
             TransferRecieverMail(referer, amount, user)
             bal =  User.objects.get(email= self.user.email)
@@ -291,7 +291,7 @@ class SystemEaring(models.Model):
     invest = models.ForeignKey(Investment, on_delete=models.CASCADE, blank=True, null=True)
     num =  models.IntegerField(default=0)
     plan = models.CharField(max_length=50, blank=True, null=True)   
-    balance = models.IntegerField(default=0)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     date_expiration =  models.DateTimeField(default=timezone.now)
     date_created =  models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=False)
@@ -359,6 +359,11 @@ class Reinvestment(models.Model):
         return f"{self.user}-------{self.number_of_investment}"
 
 
+class MinimumWithdraw(models.Model):
+    amount = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"Mininum withdrawal: {self.amount}"
 
 
 

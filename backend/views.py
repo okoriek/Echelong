@@ -180,7 +180,8 @@ def editProfile(request):
 @login_required(login_url='/login/') 
 def RenderWithdrawal(request):
     data =  Currency.objects.all()
-    args = {'data':data}
+    amount = MinimumWithdraw.objects.filter().last()
+    args = {'data':data, 'min':amount}
     return render(request, 'dashboard/withdrawal.html', args)
 
 @login_required(login_url='/login/') 
@@ -240,15 +241,17 @@ def SubmitInvestment(request):
 
     if reinvest.exists():
         counting = Reinvestment.objects.get(user=request.user, plan=select)
-        if counting.plan == 'Starter' and counting.number_of_investment < 2 or counting.plan == 'Premium' and counting.number_of_investment <4 or counting.plan == 'Vip' and counting.number_of_investment >= 0:
+        if counting.plan == 'Standard' and counting.number_of_investment < 5 or counting.plan == 'Premium' and counting.number_of_investment <7 or counting.plan == 'Ultimate' and counting.number_of_investment < 10 or counting.plan == 'Shareholders' and counting.number_of_investment >= 0:
             invest = Investment.objects.create(user= request.user, plan= select, amount= amount, is_active= True)
             referal =  User.objects.get(email=request.user.email)
 
             def Earn():
-                if select == 'Starter':
-                    return 2
+                if select == 'Standard':
+                    return 1
                 elif select == 'Premium':
-                    return 3
+                    return 2
+                elif select == 'Ultimate':
+                    return 4
                 else:
                     return 5
             ReferalBonus.objects.create(user = str(referal.refered_by), earnings = Earn())
@@ -266,14 +269,16 @@ def SubmitInvestment(request):
         referal =  User.objects.get(email=request.user.email)
 
         def Earn():
-            if select == 'Starter':
-                return 2
+            if select == 'Standard':
+                return 1
             elif select == 'Premium':
-                return 3
+                return 2
+            elif select == 'Ultimate':
+                return 4
             else:
                 return 5
         ReferalBonus.objects.create(user = str(referal.refered_by), earnings = Earn())
-        bal =  User.objects.get(user= request.user)
+        bal =  User.objects.filter(user= request.user)
         bal.balance -= int(amount)
         bal.save()
         new.number_of_investment += 1
@@ -359,7 +364,6 @@ def notification(request):
     data = NotificationVisibility.objects.update_or_create(user = user, notification_id=int(id))
     return JsonResponse('successfully updated', safe=False)
 
-def buycoin(request):
-    return render(request, 'backend/buy.html')
+
 
 

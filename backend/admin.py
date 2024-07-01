@@ -16,8 +16,8 @@ class AccountAdmin(UserAdmin):
 admin.site.register( User, AccountAdmin)
 
 
-admin.site.site_header = 'Echelonglobeinflux Admin'
-admin.site.site_title = 'Echelonglobeinflux Administrator'
+admin.site.site_header = 'Echelonglobe Admin'
+admin.site.site_title = 'Echelonglobe Administrator'
 
 
 
@@ -33,4 +33,5 @@ admin.site.register(ReferalBonus)
 admin.site.register(SystemEaring)
 admin.site.register(Contact)
 admin.site.register(Reinvestment)
+admin.site.register(MinimumWithdraw)
 #admin.site.register(NotificationVisibility)
